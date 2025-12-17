@@ -1,0 +1,802 @@
+
+/* Reset and base styles */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Open+Sans:wght@300;400;500;600;700&family=Roboto:wght@300;400;500;600;700&display=swap');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Performance optimizations */
+* {
+  box-sizing: border-box;
+}
+
+/* Optimize font loading */
+@font-face {
+  font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 300 700;
+  font-display: swap;
+  src: url('https://fonts.gstatic.com/s/poppins/v20/pxiEyp8kv8JHgFVrJJfecg.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'Open Sans';
+  font-style: normal;
+  font-weight: 300 700;
+  font-display: swap;
+  src: url('https://fonts.gstatic.com/s/opensans/v34/memSYaGs126MiZpBA-UvWbX2vVnXBbObj2OVZyOOSr4dVJWUgsjZ0B4gaVc.woff2') format('woff2');
+}
+
+/* CSS Variables for theming */
+:root {
+  --font-heading: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-body: 'Open Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-roboto: 'Roboto', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  
+  /* Shadcn UI variables - Light theme */
+  --background: 0 0% 100%;
+  --foreground: 222 84% 5%;
+  --card: 0 0% 100%;
+  --card-foreground: 222 84% 5%;
+  --popover: 0 0% 100%;
+  --popover-foreground: 222 84% 5%;
+  --primary: 180 70% 45%;
+  --primary-foreground: 0 0% 100%;
+  --secondary: 210 40% 96%;
+  --secondary-foreground: 222 84% 5%;
+  --muted: 210 40% 96%;
+  --muted-foreground: 215 16% 47%;
+  --accent: 210 40% 96%;
+  --accent-foreground: 222 84% 5%;
+  --destructive: 0 84% 60%;
+  --destructive-foreground: 0 0% 100%;
+  --border: 214 32% 91%;
+  --input: 214 32% 91%;
+  --ring: 180 70% 45%;
+  --radius: 0.5rem;
+  
+  /* Performance colors */
+  --color-primary: hsl(180, 70%, 45%);
+  --color-primary-dark: hsl(180, 70%, 35%);
+  --color-accent: hsl(210, 40%, 90%);
+  --color-teal: hsl(180, 70%, 45%);
+  --color-background: hsl(0, 0%, 100%);
+  --color-foreground: hsl(222, 84%, 5%);
+  
+  /* Skills section colors */
+  --color-skill-name: hsl(222, 84%, 5%);
+  --color-skill-score: hsl(215, 70%, 55%);
+  --color-skill-level: hsl(215, 70%, 55%);
+  --color-skill-badge: hsl(215, 70%, 95%);
+  --color-skill-category: hsl(222, 84%, 5%);
+  --color-skill-category-bg: hsl(0, 0%, 100%);
+  --color-skill-border: hsl(215, 16%, 90%);
+}
+
+/* Dark theme variables */
+[data-theme="dark"] {
+  /* Shadcn UI variables - Dark theme */
+  --background: 222 84% 5%;
+  --foreground: 210 40% 98%;
+  --card: 222 84% 5%;
+  --card-foreground: 210 40% 98%;
+  --popover: 222 84% 5%;
+  --popover-foreground: 210 40% 98%;
+  --primary: 180 70% 45%;
+  --primary-foreground: 222 84% 5%;
+  --secondary: 217 32% 17%;
+  --secondary-foreground: 210 40% 98%;
+  --muted: 217 32% 17%;
+  --muted-foreground: 215 16% 57%;
+  --accent: 217 32% 17%;
+  --accent-foreground: 210 40% 98%;
+  --destructive: 0 62% 30%;
+  --destructive-foreground: 210 40% 98%;
+  --border: 217 32% 17%;
+  --input: 217 32% 17%;
+  --ring: 180 70% 45%;
+  
+  /* Performance colors */
+  --color-background: hsl(222, 84%, 5%);
+  --color-foreground: hsl(210, 40%, 98%);
+  --color-accent: hsl(217, 32%, 17%);
+  --color-primary: hsl(180, 70%, 45%);
+  --color-primary-dark: hsl(180, 70%, 35%);
+  
+  /* Dark theme skills colors */
+  --color-skill-name: hsl(210, 40%, 98%);
+  --color-skill-score: hsl(215, 70%, 65%);
+  --color-skill-level: hsl(215, 70%, 65%);
+  --color-skill-badge: hsl(217, 32%, 17%);
+  --color-skill-category: hsl(210, 40%, 98%);
+  --color-skill-category-bg: hsl(217, 32%, 17%);
+  --color-skill-border: hsl(217, 32%, 25%);
+}
+
+/* Base styles with performance optimizations */
+html {
+  scroll-behavior: smooth;
+  font-feature-settings: 'kern' 1, 'liga' 1, 'calt' 1;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  font-family: var(--font-body);
+  line-height: 1.6;
+  color: var(--color-foreground);
+  background-color: var(--color-background);
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+  /* Prevent horizontal scroll */
+  width: 100%;
+  max-width: 100vw;
+  min-height: 100vh;
+  position: relative;
+  isolation: isolate; /* Create new stacking context to prevent z-index issues */
+  scroll-behavior: smooth;
+}
+
+/* Typography optimizations - Enhanced responsive typography */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-heading);
+  line-height: 1.2;
+  margin: 0;
+  font-weight: 600;
+}
+
+/* Responsive typography with better scaling */
+h1 { 
+  font-size: clamp(1.75rem, 5vw, 4rem); 
+  line-height: 1.1;
+}
+h2 { 
+  font-size: clamp(1.5rem, 4vw, 3rem); 
+  line-height: 1.15;
+}
+h3 { 
+  font-size: clamp(1.25rem, 3vw, 2rem); 
+  line-height: 1.2;
+}
+h4 { 
+  font-size: clamp(1.125rem, 2.5vw, 1.5rem); 
+  line-height: 1.25;
+}
+
+/* Performance utilities with enhanced responsive design */
+@layer utilities {
+  .section-padding {
+    padding: clamp(2rem, 6vw, 6rem) 0;
+  }
+  
+  .section-heading {
+    font-size: clamp(1.75rem, 5vw, 3.5rem);
+    font-weight: 700;
+    color: var(--color-foreground);
+    margin-bottom: clamp(1rem, 3vw, 2rem);
+    line-height: 1.1;
+  }
+  
+  .container {
+    width: 100%;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 clamp(0.75rem, 4vw, 2rem);
+    box-sizing: border-box;
+  }
+  
+  /* Responsive Grid System */
+  .responsive-grid {
+    display: grid;
+    gap: clamp(0.75rem, 3vw, 2rem);
+    grid-template-columns: repeat(auto-fit, minmax(min(300px, 100%), 1fr));
+  }
+  
+  .responsive-grid-2 {
+    display: grid;
+    gap: clamp(1rem, 4vw, 2rem);
+    grid-template-columns: repeat(auto-fit, minmax(min(400px, 100%), 1fr));
+  }
+  
+  .responsive-flex {
+    display: flex;
+    flex-wrap: wrap;
+    gap: clamp(0.75rem, 3vw, 1.5rem);
+    align-items: flex-start;
+  }
+  
+  .responsive-flex > * {
+    flex: 1 1 min(300px, 100%);
+  }
+  
+  /* Optimized buttons with responsive sizing */
+  .btn-primary {
+    background-color: var(--color-primary);
+    color: white;
+    padding: clamp(0.75rem, 2vw, 1rem) clamp(1.5rem, 4vw, 2rem);
+    border-radius: 0.5rem;
+    font-weight: 500;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    border: none;
+    cursor: pointer;
+    min-height: 44px;
+    min-width: 44px;
+    touch-action: manipulation;
+    font-size: clamp(0.875rem, 2vw, 1rem);
+  }
+  
+  .btn-primary:hover {
+    background-color: var(--color-primary-dark);
+    transform: translateY(-2px);
+  }
+  
+  .btn-outline {
+    background-color: transparent;
+    color: var(--color-primary);
+    border: 2px solid var(--color-primary);
+    padding: clamp(0.75rem, 2vw, 1rem) clamp(1.5rem, 4vw, 2rem);
+    border-radius: 0.5rem;
+    font-weight: 500;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    cursor: pointer;
+    min-height: 44px;
+    min-width: 44px;
+    touch-action: manipulation;
+    font-size: clamp(0.875rem, 2vw, 1rem);
+  }
+  
+  .btn-outline:hover {
+    background-color: var(--color-primary);
+    color: white;
+  }
+
+  /* Enhanced responsive utilities */
+  .text-responsive-xs {
+    font-size: clamp(0.75rem, 2vw, 0.875rem);
+  }
+  
+  .text-responsive-sm {
+    font-size: clamp(0.875rem, 2.5vw, 1rem);
+  }
+  
+  .text-responsive-base {
+    font-size: clamp(1rem, 3vw, 1.125rem);
+  }
+  
+  .text-responsive-lg {
+    font-size: clamp(1.125rem, 3.5vw, 1.25rem);
+  }
+  
+  .text-responsive-xl {
+    font-size: clamp(1.25rem, 4vw, 1.5rem);
+  }
+
+  /* Z-index utilities for proper layering */
+  .z-navbar {
+    z-index: 9999;
+  }
+  
+  .z-mobile-menu {
+    z-index: 9998;
+  }
+  
+  .z-scroll-button {
+    z-index: 9997;
+  }
+  
+  .z-modal {
+    z-index: 10000;
+  }
+  
+  .z-modal-content {
+    z-index: 10001;
+  }
+  
+  /* Fixed positioning utilities */
+  .fixed-navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 9999;
+  }
+  
+  .fixed-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 9998;
+  }
+}
+
+/* Animations with reduced motion support */
+@media (prefers-reduced-motion: no-preference) {
+  .animate-fade-in-up {
+    animation: fade-in-up 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  }
+  
+  .animate-float {
+    animation: float 6s ease-in-out infinite;
+  }
+  
+  .pulse-animation {
+    animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  }
+}
+
+@keyframes fade-in-up {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-20px); }
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+
+/* Respect user's motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  :root {
+    --color-primary: hsl(180, 100%, 30%);
+    --color-foreground: hsl(0, 0%, 0%);
+    --color-background: hsl(0, 0%, 100%);
+  }
+  
+  [data-theme="dark"] {
+    --color-primary: hsl(180, 100%, 70%);
+    --color-foreground: hsl(0, 0%, 100%);
+    --color-background: hsl(0, 0%, 0%);
+  }
+}
+
+/* Focus management for accessibility */
+:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
+/* Enhanced responsive breakpoints - Mobile First Design */
+/* Extra Small Mobile (320px - 374px) */
+@media (max-width: 374px) {
+  .container {
+    padding: 0 0.75rem;
+    max-width: 100%;
+  }
+  
+  .section-padding {
+    padding: 2rem 0 1.5rem 0;
+  }
+  
+  body {
+    font-size: 14px;
+    line-height: 1.5;
+  }
+  
+  /* Prevent horizontal overflow and section overlapping */
+  * {
+    max-width: 100%;
+    box-sizing: border-box;
+  }
+  
+  section {
+    padding-top: 5rem !important;
+    margin-bottom: 2rem;
+    position: relative;
+    z-index: 1;
+  }
+  
+  /* Ensure buttons are touch-friendly */
+  .btn-primary,
+  .btn-outline {
+    padding: 0.75rem 1rem;
+    font-size: 0.875rem;
+    min-height: 44px;
+    min-width: 44px;
+    width: 100%;
+    margin-bottom: 0.5rem;
+  }
+  
+  /* Typography adjustments */
+  h1 { font-size: clamp(1.5rem, 8vw, 2rem); }
+  h2 { font-size: clamp(1.25rem, 6vw, 1.75rem); }
+  h3 { font-size: clamp(1.125rem, 5vw, 1.5rem); }
+  
+  /* Grid adjustments */
+  .grid {
+    gap: 1rem !important;
+  }
+  
+  /* Text spacing for mobile */
+  p {
+    margin-bottom: 1rem;
+    line-height: 1.6;
+  }
+}
+
+/* Small Mobile (375px - 479px) */
+@media (min-width: 375px) and (max-width: 479px) {
+  .container {
+    padding: 0 1rem;
+    max-width: 100%;
+  }
+  
+  .section-padding {
+    padding: 2.5rem 0 2rem 0;
+  }
+  
+  section {
+    padding-top: 5rem !important;
+    margin-bottom: 2rem;
+    position: relative;
+    z-index: 1;
+  }
+  
+  .btn-primary,
+  .btn-outline {
+    padding: 0.75rem 1.25rem;
+    font-size: 0.875rem;
+    min-height: 44px;
+    min-width: 44px;
+  }
+  
+  .grid {
+    gap: 1.25rem !important;
+  }
+  
+  /* Improved text spacing */
+  h2 {
+    margin-bottom: 1.5rem;
+  }
+  
+  p {
+    margin-bottom: 1.25rem;
+    line-height: 1.6;
+  }
+}
+
+/* Medium Mobile (480px - 767px) */
+@media (min-width: 480px) and (max-width: 767px) {
+  .container {
+    padding: 0 1.25rem;
+    max-width: 100%;
+  }
+  
+  .section-padding {
+    padding: 3rem 0 2.5rem 0;
+  }
+  
+  section {
+    padding-top: 5rem !important;
+    margin-bottom: 2rem;
+    position: relative;
+    z-index: 1;
+  }
+  
+  .btn-primary,
+  .btn-outline {
+    padding: 0.875rem 1.5rem;
+    font-size: 0.9rem;
+    min-height: 44px;
+  }
+  
+  .grid {
+    gap: 1.5rem !important;
+  }
+  
+  /* Better spacing for medium mobile */
+  h2 {
+    margin-bottom: 2rem;
+  }
+}
+
+/* Tablet Portrait (768px - 991px) */
+@media (min-width: 768px) and (max-width: 991px) {
+  .container {
+    padding: 0 1.5rem;
+    max-width: 100%;
+  }
+  
+  .section-padding {
+    padding: 3.5rem 0;
+  }
+  
+  .btn-primary,
+  .btn-outline {
+    padding: 1rem 1.75rem;
+    font-size: 1rem;
+  }
+}
+
+/* Tablet Landscape / Small Desktop (992px - 1199px) */
+@media (min-width: 992px) and (max-width: 1199px) {
+  .container {
+    padding: 0 2rem;
+    max-width: 1140px;
+  }
+  
+  .section-padding {
+    padding: 4.5rem 0;
+  }
+}
+
+/* Desktop (1200px - 1399px) */
+@media (min-width: 1200px) and (max-width: 1399px) {
+  .container {
+    padding: 0 2rem;
+    max-width: 1320px;
+  }
+  
+  .section-padding {
+    padding: 5.5rem 0;
+  }
+}
+
+/* Large Desktop (1400px+) */
+@media (min-width: 1400px) {
+  .container {
+    padding: 0 2rem;
+    max-width: 1400px;
+  }
+  
+  .section-padding {
+    padding: 6rem 0;
+  }
+}
+
+/* Responsive Images */
+@media (max-width: 767px) {
+  img {
+    width: 100% !important;
+    height: auto !important;
+    object-fit: cover;
+  }
+  
+  /* Responsive aspect ratios for mobile */
+  .aspect-16-9 {
+    aspect-ratio: 4/3; /* Better for mobile viewing */
+  }
+  
+  .aspect-square {
+    aspect-ratio: 1/1;
+  }
+}
+
+/* Touch Device Optimizations */
+@media (hover: none) and (pointer: coarse) {
+  /* Larger touch targets */
+  button, 
+  [role="button"],
+  input[type="submit"],
+  input[type="button"],
+  a {
+    min-height: 44px;
+    min-width: 44px;
+    touch-action: manipulation;
+    padding: 0.75rem 1rem;
+  }
+  
+  /* Disable hover effects on touch devices */
+  .hover\:scale-105:hover,
+  .hover\:transform:hover {
+    transform: none !important;
+  }
+  
+  /* Better spacing for touch */
+  .space-y-2 > * + * {
+    margin-top: 0.75rem;
+  }
+}
+
+/* Landscape Mobile Optimization */
+@media screen and (orientation: landscape) and (max-height: 500px) {
+  .section-padding {
+    padding: 1rem 0;
+  }
+  
+  .min-h-screen {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  
+  .section-heading {
+    font-size: clamp(1.25rem, 4vw, 2rem);
+    margin-bottom: 0.75rem;
+  }
+}
+
+/* Print styles */
+@media print {
+  * {
+    background: transparent !important;
+    color: black !important;
+    box-shadow: none !important;
+    text-shadow: none !important;
+  }
+  
+  .no-print {
+    display: none !important;
+  }
+}
+
+/* Performance optimizations for images */
+img {
+  max-width: 100%;
+  height: auto;
+  vertical-align: middle;
+  loading: lazy;
+  decoding: async;
+}
+
+/* Responsive image containers */
+.img-responsive {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  object-position: center;
+}
+
+.img-container {
+  position: relative;
+  overflow: hidden;
+  border-radius: 0.5rem;
+}
+
+.img-container::before {
+  content: '';
+  display: block;
+  padding-bottom: 56.25%; /* 16:9 aspect ratio */
+}
+
+.img-container img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Responsive video containers */
+.video-responsive {
+  position: relative;
+  padding-bottom: 56.25%;
+  height: 0;
+  overflow: hidden;
+}
+
+.video-responsive iframe,
+.video-responsive object,
+.video-responsive embed {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+/* Lazy loading styles */
+.lazy-image {
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.lazy-image.loaded {
+  opacity: 1;
+}
+
+/* Optimize rendering for better performance */
+.will-change-transform {
+  will-change: transform;
+}
+
+.will-change-opacity {
+  will-change: opacity;
+}
+
+/* GPU acceleration for smooth animations */
+.gpu-accelerated {
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  perspective: 1000px;
+}
+
+/* Content loading skeleton */
+.skeleton {
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 200% 100%;
+  animation: loading 1.5s infinite;
+}
+
+@keyframes loading {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+/* Dark theme skeleton */
+[data-theme="dark"] .skeleton {
+  background: linear-gradient(90deg, #2a2a2a 25%, #1a1a1a 50%, #2a2a2a 75%);
+  background-size: 200% 100%;
+}
+
+/* Utility classes for aspect ratios */
+.aspect-16-9 {
+  aspect-ratio: 16/9;
+}
+
+.aspect-4-3 {
+  aspect-ratio: 4/3;
+}
+
+.aspect-square {
+  aspect-ratio: 1/1;
+}
+
+/* Enhanced mobile interactions */
+@media (hover: none) and (pointer: coarse) {
+  /* Mobile-specific styles for touch devices */
+  .hover\:scale-105:hover {
+    transform: none;
+  }
+  
+  /* Ensure proper touch targets */
+  button, 
+  [role="button"],
+  input[type="submit"],
+  input[type="button"] {
+    min-height: 44px;
+    min-width: 44px;
+    touch-action: manipulation;
+  }
+}
+
+/* Landscape orientation optimization for mobile */
+@media screen and (orientation: landscape) and (max-height: 500px) {
+  .section-padding {
+    padding: 1.5rem 0;
+  }
+  
+  .section-heading {
+    font-size: clamp(1.5rem, 4vw, 2.5rem);
+    margin-bottom: 1rem;
+  }
+}
